@@ -11,7 +11,8 @@ const program = Effect.gen(function*() {
 
 const context: Context.Context<A | B> = pipe(
   Context.empty(),
-  // add stuff here to make the code compile
+  Context.add(A, 'a'),
+  Context.add(B, 'b'),
 )
 
 // Provide
