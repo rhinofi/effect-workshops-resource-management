@@ -3,4 +3,4 @@ set -ueo pipefail
 
 bin=node_modules/.bin/
 
-exec "$bin/tsc" -b --noEmit && $bin/tsx "${@}"
+"$bin/tsc" -b --noEmit && exec $bin/tsx "${@}"
