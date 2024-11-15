@@ -1,0 +1,43 @@
+{
+  "include": ["src/**/*.ts"],
+  "compilerOptions": {
+    // @tsconfig/strictest
+    "strict": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": true,
+
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // @tsconfig/node20
+    "lib": ["es2023"],
+    "module": "node16",
+    "target": "es2022",
+    "moduleResolution": "node16",
+
+    // Other
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "importHelpers": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "types": ["node"],
+    "verbatimModuleSyntax": true,
+
+    "outDir": "dist",
+    "rootDir": "src",
+  },
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "@rhinofi/tsconfig Node18 Strictest",
+  "_version": "1.0.0"
+}
