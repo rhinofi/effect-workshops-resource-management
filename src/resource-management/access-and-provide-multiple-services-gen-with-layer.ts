@@ -1,4 +1,4 @@
-import { Console, Context, Effect, pipe } from 'effect'
+import { Console, Effect, Layer, pipe } from 'effect'
 import { A } from './A.js'
 import { B } from './B.js'
 
@@ -9,10 +9,10 @@ const program = Effect.gen(function*() {
   yield* Console.log('service B instance:', b)
 })
 
-const context: Context.Context<A | B> = pipe(
-  Context.empty(),
-  Context.merge(Context.make(A, 'a')),
-  Context.merge(Context.make(B, 'b')),
+const context: Layer.Layer<A | B> = pipe(
+  Layer.empty,
+  Layer.merge(Layer.succeed(A, 'a')),
+  Layer.merge(Layer.succeed(B, 'b')),
 )
 
 // Provide
