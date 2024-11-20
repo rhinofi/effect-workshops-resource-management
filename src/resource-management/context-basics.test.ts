@@ -11,7 +11,7 @@ it('Replace Service A in contextAB with new value: "a1"', () => {
   )
 
   // Modify this line only
-  const result = contextAB
+  const result = Context.add(contextAB, A, 'a1')
 
   expect(result).toStrictEqual(expectedResult)
 })
