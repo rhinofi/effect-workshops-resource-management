@@ -2,7 +2,7 @@ import { Console, Effect, Layer, pipe } from 'effect'
 import { A } from './A.js'
 import { B } from './B.js'
 
-const program = Effect.gen(function*() {
+const program: Effect.Effect<void, never, A | B> = Effect.gen(function*() {
   const a = yield* A
   yield* Console.log('service A instance:', a)
   const b = yield* B
@@ -16,7 +16,7 @@ const context: Layer.Layer<A | B> = pipe(
 )
 
 // Provide
-const runnable = pipe(
+const runnable: Effect.Effect<void, never, never> = pipe(
   program,
   Effect.provide(context),
 )
