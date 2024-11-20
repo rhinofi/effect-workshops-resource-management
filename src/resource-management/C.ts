@@ -19,7 +19,7 @@ export const CLive = Layer.effect(
     const a = yield* A
     const b = yield* B
 
-    return a + b
+    return `C({ a:${a}, b:${b} })`
   }),
 )
 
