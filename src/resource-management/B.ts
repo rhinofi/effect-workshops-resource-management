@@ -1,4 +1,4 @@
-import { Context, Layer } from 'effect'
+import { Console, Context, Effect, Layer, pipe } from 'effect'
 
 /*
  Interface
@@ -14,4 +14,18 @@ export const B = Context.GenericTag<B, BService>('B')
 /*
  Implementation
 */
-export const BLive = Layer.succeed(B, 'b')
+export const BLive = Layer.effect(
+  B,
+  Effect.gen(function*() {
+    yield* Console.log('init B sleep')
+    yield* Effect.sleep('3 second')
+    yield* Console.log('init B')
+    return 'b'
+  }),
+)
+
+export const BLiveWithLogAfterInit = Layer.tap(
+  BLive,
+  () => Console.log('after init b'),
+)
+// Layer.succeed(B, 'b')

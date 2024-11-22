@@ -1,4 +1,5 @@
 import { Console, Context, Effect, Layer } from 'effect'
+import { layerAssertFinal } from '../lib/layer.js'
 import { A, ALive, type AService } from './A.js'
 import { B, BLive, type BService } from './B.js'
 
@@ -22,5 +23,10 @@ export const CLive = Layer.effect(
     return `C({ a:${a}, b:${b} })`
   }),
 )
+
+const CFinal = layerAssertFinal(Layer.provide(
+  CLive,
+  Layer.merge(ALive, BLive),
+))
 
 const Cfactory = (a: AService, b: BService): CService => a + b

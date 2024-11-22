@@ -14,4 +14,12 @@ export const A = Context.GenericTag<A, AService>('A')
 /*
  Implementation
 */
-export const ALive = Layer.succeed(A, 'a')
+export const ALive = Layer.effect(
+  A,
+  Effect.gen(function*() {
+    yield* Console.log('init A sleep')
+    yield* Effect.sleep('3 second')
+    yield* Console.log('init A')
+    return 'a'
+  }),
+)

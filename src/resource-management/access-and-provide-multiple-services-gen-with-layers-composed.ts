@@ -33,4 +33,4 @@ const runnable = pipe(
 )
 
 // Run program
-Effect.runSync(runnable)
+Effect.runFork(runnable)
