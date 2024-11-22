@@ -18,7 +18,7 @@ export const BLive = Layer.effect(
   B,
   Effect.gen(function*() {
     yield* Console.log('init B sleep')
-    yield* Effect.sleep('3 second')
+    yield* Effect.sleep('3 millis')
     yield* Console.log('init B')
     return 'b'
   }),

@@ -5,23 +5,24 @@ import { C, CLive } from './C.js'
 import { contextAB } from './context-basics.js'
 
 const program = Effect.gen(function*() {
+  yield* Effect.addFinalizer(exit => Effect.log('exit value:', exit))
   const c = yield* C
   yield* Console.log('service C instance:', c)
+  return 1
 })
 
 const Cdeps = Layer.mergeAll(
   ALive,
   BLive,
-  CLive,
 )
 
 const allDeps = pipe(
   CLive,
   Layer.provide(Cdeps),
-  Layer.provide(Layer.merge(
-    ALive,
-    BLive,
-  )),
+  // Layer.provide(Layer.merge(
+  //   ALive,[]
+  //   BLive,
+  // )),
 )
 
 // Provide
@@ -30,6 +31,7 @@ const runnable = pipe(
   Effect.provide(allDeps),
   Effect.andThen(program),
   Effect.provide(allDeps),
+  Effect.scoped,
 )
 
 // Run program

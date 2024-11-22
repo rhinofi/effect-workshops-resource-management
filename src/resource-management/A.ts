@@ -1,4 +1,4 @@
-import { Console, Context, Effect, Layer } from 'effect'
+import { Console, Context, Duration, Effect, Layer } from 'effect'
 
 /*
  Interface
@@ -14,12 +14,18 @@ export const A = Context.GenericTag<A, AService>('A')
 /*
  Implementation
 */
-export const ALive = Layer.effect(
+export const ALive = Layer.scoped(
   A,
   Effect.gen(function*() {
     yield* Console.log('init A sleep')
-    yield* Effect.sleep('3 second')
+    yield* Effect.sleep('1 millis')
     yield* Console.log('init A')
-    return 'a'
+    yield* Effect.addFinalizer(() => Effect.log('A cleanup.'))
+
+    const a = yield* Effect.acquireRelease(
+      Effect.log('acquire').pipe(Effect.andThen(Effect.succeed('1'))),
+      x => Effect.log('release', x),
+    )
+    return a
   }),
 )
